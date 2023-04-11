@@ -240,3 +240,5 @@ q_empresa$W #tiempo medio en horas que un aparato pasa en la  empresa
 # 6.23 Gran Muralla china----
 #Rollos lambda=12+0-8 mu=60/4=15
 #Pollo lambda=8+0.2*12=10.4 mu=60/5=12
+
+#pito
