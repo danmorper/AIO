@@ -1,0 +1,18 @@
+---
+title: "TodosEjercicios"
+author: "DanielMorenoPerez"
+date: "2023-04-11"
+output: html_document
+---
+
+Una empresa de reparación de electrónica sirve a la mayoría de los minoristas de electrodomésticos de la región. Recibe aparatos para arreglar según una distribución de Poisson de media 9 a la hora. Todos los aparatos nada más llegar son inspeccionados por un especialista que determina a que sección debe ir dependiendo del tipo de reparación si es básica, si la debe ver un especialista, si debe enviar el aparato al fabricante y por tanto mandados a un almacén para ser enviado. Alrededor del 17% es enviado a fabrica. De los restantes, el 57% va a reparaciones generales y el 43% es enviado a un experto. Todos los aparatos reparados van al almacén para ser enviados, sin embargo el 5% que va a reparaciones generales vuelve al inicio para ser nuevamente clasiĄcado. Debido a la variedad de los aparatos enviados y la variedad de problemas la distribución exponencial es una adecuada representación para la clasiĄcación, reparación y envío. Solo hay una persona en la selección y tarda una media de 6 minutos por aparato. Hay tres personas en reparaciones generales y tardan por término medio 35 minutos por aparato (incluidos los que son devueltos a clasiĄcación). Hay cuatro expertos y tardan por término medio 65 minutos en reparar un aparato (estos aparato siempre salen arreglados). Hay dos muelles de embarque, cada uno de ellos tarda una media de 12,5 minutos en embalar un aparato. El ingeniero de la empresa se pregunta cuantos aparatos hay por término medio en cada nodo, el tiempo que pasa en cada nodo y el tiempo medio que está un aparato en la empresa desde que es recibido y clasiĄcado hasta que es empaquetado.
+Datos: lambda=9 aparatos/h. Una persona con mu=60/6=10 /h. El 17% se envía a fábrica, 57% repara- ciones generales (el 5% vuelve al inicio) y 43% expertos. Después son enviados, excepto ese 5%. 3 personas en reparaciones generales con mu=60/35 aparatos/h. 4 expertos con mu=65/60 ap/h. Envío: hay 2 muelles de embarque con mu=60/12.5 ap/h.
+Introducimos la matriz de prob de transición entre etapas.
+
+```{r}
+datos<-c(0,0.17,0.57*0.83,0.43*0.83,
+         0,0,0,0,
+         0.05,0.95,0,0,
+         0,1,0,0)
+probs<-matrix(data = datos,byrow = T,nrow = 4,ncol = 4)
+```
