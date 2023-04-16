@@ -206,6 +206,10 @@ cat("Puertas en la etapa 3:", puertas_etapa3, "\n")
 
 #Matriz de probabilidades c(0,57*0.83, 0.17, )
 library(queueing)
+
+# Esta matriz es de tamaño 4x4, donde las filas representan el nodo actual y 
+# las columnas representan el nodo al que se puede transicionar. 
+
 datos<-c(0,0.17,0.57*0.83,0.43*0.83,
          0,0,0,0,
          0.05,0.95,0,0,
@@ -241,3 +245,26 @@ q_empresa$W #tiempo medio en horas que un aparato pasa en la  empresa
 #Rollos lambda=12+0-8 mu=60/4=15
 #Pollo lambda=8+0.2*12=10.4 mu=60/5=12
 
+# Nodo de llegada
+llegada <- 20
+
+# Nodo de rollitos de primavera
+rollito <- 0.6 # probabilidad ir a por rollitos
+rollito_pollo <- 0.6*0.2 # probabilidad de ir a pollo frito después de rollito
+rollito_irse <- 0.6*0.8# probabilidad de salir del restaurante
+
+# Nodo de pollo frito
+pollo <- 0.4
+pollo_rollito <- 0.4*0.1 # probabilidad de ir a rollitos de primavera desoués de pollo
+pollo_irse <- 0.4*0.9 # probabilidad de salir del restaurante
+
+# Red de colas
+datos <- matrix(data = c(rollito, rollito_pollo, rollito_irse,
+                         pollo_rollito, pollo, pollo_irse,
+                         0, 0, 1), nrow = 3, ncol = 3, byrow = TRUE)
+red <- NewInput.OJN(prob = datos, 
+                    NewInput.MM1(lambda = llegada, mu = 1/4), 
+                    NewInput.MM1(lambda = llegada, mu = 1/5))
+CheckInput(red)
+q_red <- QueueingModel(red)
+summary(q_red)
